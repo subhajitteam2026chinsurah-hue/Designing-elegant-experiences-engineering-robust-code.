@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Rivera | Senior Product Designer & Developer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        },
+                        dark: {
+                            bg: '#0a0a0c',
+                            card: '#121216',
+                            border: '#23232a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom subtle glassmorphism and glow */
+        .glass {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .dark .glass {
+            background: rgba(14, 14, 18, 0.75);
+        }
+        .glow-mesh {
+            background: radial-gradient(circle at 50% 0%, rgba(34, 197, 94, 0.12) 0%, transparent 70%);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #111827 0%, #4b5563 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .dark .text-gradient {
+            background: linear-gradient(135deg, #f9fafb 0%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Smooth fade animations */
+        .fade-in {
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-zinc-50 text-zinc-800 dark:bg-[#0a0a0c] dark:text-zinc-200 transition-colors duration-300 selection:bg-emerald-500 selection:text-white relative min-h-screen">
+
+    <!-- Top Glow Effect -->
+    <div class="fixed top-0 left-0 right-0 h-96 glow-mesh pointer-events-none z-0"></div>
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-zinc-200/70 dark:border-zinc-800/80 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#hero" class="flex items-center gap-2.5 group">
+                <span class="w-9 h-9 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 font-bold flex items-center justify-center text-sm shadow-sm group-hover:scale-105 transition-transform duration-200">
+                    AR
+                </span>
+                <span class="font-semibold text-base sm:text-lg tracking-tight text-zinc-900 dark:text-white">
+                    Alex Rivera<span class="text-emerald-500">.</span>
+                </span>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-1 sm:gap-2">
+                <a href="#about" class="px-3.5 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-all">About</a>
+                <a href="#skills" class="px-3.5 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-all">Skills</a>
+                <a href="#projects" class="px-3.5 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-all">Projects</a>
+                <a href="#contact" class="px-3.5 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-all">Contact</a>
+            </nav>
+
+            <!-- Actions: Dark Mode Toggle & Quick CTA -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button id="theme-toggle" aria-label="Toggle Dark Mode" class="w-10 h-10 rounded-xl flex items-center justify-center border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/80 transition-colors">
+                    <i data-lucide="sun" id="sun-icon" class="w-4 h-4 hidden dark:block"></i>
+                    <i data-lucide="moon" id="moon-icon" class="w-4 h-4 block dark:hidden"></i>
+                </button>
+
+                <a href="#contact" class="hidden sm:inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200 rounded-xl shadow-sm hover:shadow transition-all">
+                    <span>Let's Talk</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" aria-label="Open Navigation Menu" class="md:hidden w-10 h-10 rounded-xl flex items-center justify-center border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+                    <i data-lucide="menu" id="menu-icon" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0a0a0c] px-4 py-5 shadow-xl transition-all">
+            <div class="flex flex-col space-y-3">
+                <a href="#about" class="mobile-nav-link px-3 py-2 text-base font-medium text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/60">About Me</a>
+                <a href="#skills" class="mobile-nav-link px-3 py-2 text-base font-medium text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/60">Skills & Tooling</a>
+                <a href="#projects" class="mobile-nav-link px-3 py-2 text-base font-medium text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/60">Featured Projects</a>
+                <a href="#contact" class="mobile-nav-link px-3 py-2 text-base font-medium text-zinc-700 dark:text-zinc-200 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/60">Contact Me</a>
+                <div class="pt-2">
+                    <a href="#contact" class="mobile-nav-link flex items-center justify-center gap-2 w-full py-2.5 text-sm font-medium text-white bg-emerald-600 rounded-xl">
+                        <span>Get In Touch</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10 pt-24 sm:pt-32">
+        <!-- HERO SECTION -->
+        <section id="hero" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 flex flex-col items-center text-center">
+            <!-- Availability Pill -->
+            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs sm:text-sm font-medium mb-8 fade-in">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                Available for select freelance & consulting roles
+            </div>
+
+            <!-- Hero Main Headline -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight max-w-4xl text-gradient leading-[1.12] mb-6">
+                Designing elegant experiences, engineering robust code.
+            </h1>
+
+            <p class="max-w-2xl text-base sm:text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-normal leading-relaxed mb-10">
+                I'm <span class="text-zinc-900 dark:text-white font-medium">Alex Rivera</span>, a Full-Stack Engineer and Product Designer crafting human-centered digital products with performance, speed, and clean typography.
+            </p>
+
+            <!-- CTA Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto mb-16">
+                <a href="#projects" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 font-medium hover:bg-zinc-800 dark:hover:bg-zinc-200 transition shadow-md hover:shadow-lg">
+                    <span>Explore Work</span>
+                    <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                </a>
+                <a href="#contact" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-zinc-300 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/60 font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800/80 transition">
+                    <span>Contact Me</span>
+                    <i data-lucide="mail" class="w-4 h-4"></i>
+                </a>
+                <button id="copy-email-hero-btn" onclick="copyEmailToClipboard()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition text-sm">
+                    <i data-lucide="copy" class="w-4 h-4"></i>
+                    <span id="copy-email-text">Copy Email</span>
+                </button>
+            </div>
+
+            <!-- Social Media Proof Bar -->
+            <div class="flex items-center gap-6 text-zinc-400 dark:text-zinc-500">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:text-zinc-900 dark:hover:text-white transition" aria-label="GitHub">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-zinc-900 dark:hover:text-white transition" aria-label="LinkedIn">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="hover:text-zinc-900 dark:hover:text-white transition" aria-label="Twitter">
+                    <i data-lucide="twitter" class="w-5 h-5"></i>
+                </a>
+                <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" class="hover:text-zinc-900 dark:hover:text-white transition" aria-label="Dribbble">
+                    <i data-lucide="dribbble" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- ABOUT ME SECTION -->
+        <section id="about" class="py-20 sm:py-28 border-t border-zinc-200 dark:border-zinc-800/60">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="max-w-xl mb-12">
+                    <div class="text-xs uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-semibold mb-2">About Me</div>
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white">
+                        Obsessed with craft, driven by purposeful design.
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <!-- Image / Visual Representation -->
+                    <div class="lg:col-span-5 relative">
+                        <div class="relative mx-auto max-w-sm rounded-2xl overflow-hidden p-2 bg-gradient-to-b from-zinc-200 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xl">
+                            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-zinc-800">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" 
+                                    alt="Alex Rivera Portrait" 
+                                    class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500 ease-in-out"
+                                    onerror="this.src='https://placehold.co/600x800/1e293b/ffffff?text=Alex+Rivera'"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 right-4 text-white p-3 rounded-lg backdrop-blur-md bg-black/30 border border-white/10">
+                                    <p class="text-sm font-semibold">Alex Rivera</p>
+                                    <p class="text-xs text-zinc-300">San Francisco, CA • Remote Worldwide</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Narrative & Key Accomplishments -->
+                    <div class="lg:col-span-7 flex flex-col justify-center space-y-6">
+                        <p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                            Over the past 7 years, I’ve worked with venture-backed startups and established tech enterprises to transform complex problems into intuitive, clean user experiences.
+                        </p>
+                        <p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                            I bridge the gap between design vision and technical execution. Whether writing production TypeScript, architecting cloud backends, or fine-tuning micro-interactions in design systems, my focus is consistently on simplicity, speed, and user happiness.
+                        </p>
+
+                        <!-- Highlights Grid -->
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
+                            <div class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50">
+                                <div class="text-3xl font-extrabold text-zinc-900 dark:text-white mb-1">7+</div>
+                                <div class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">Years Experience</div>
+                            </div>
+                            <div class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50">
+                                <div class="text-3xl font-extrabold text-zinc-900 dark:text-white mb-1">40+</div>
+                                <div class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">Projects Delivered</div>
+                            </div>
+                            <div class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 col-span-2 sm:col-span-1">
+                                <div class="text-3xl font-extrabold text-zinc-900 dark:text-white mb-1">99.8%</div>
+                                <div class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">Satisfaction Rate</div>
+                            </div>
+                        </div>
+
+                        <!-- Core Values / Checklist -->
+                        <div class="pt-2 space-y-2.5">
+                            <div class="flex items-center gap-3 text-sm text-zinc-600 dark:text-zinc-300">
+                                <span class="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                                </span>
+                                <span>Design Systems architected for cross-platform scalability.</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-zinc-600 dark:text-zinc-300">
+                                <span class="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                                </span>
+                                <span>High-performance web apps scoring 95+ on Google Lighthouse.</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-zinc-600 dark:text-zinc-300">
+                                <span class="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                                </span>
+                                <span>Accessibility-first standard (WCAG AA compliant).</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills" class="py-20 sm:py-28 bg-zinc-100/50 dark:bg-zinc-900/20 border-t border-zinc-200 dark:border-zinc-800/60">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+                    <div class="text-xs uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-semibold mb-2">Capabilities</div>
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white mb-4">
+                        Modern tools, refined expertise.
+                    </h2>
+                    <p class="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base">
+                        A curated toolkit honed across engineering stacks, interactive UI paradigms, and infrastructure architecture.
+                    </p>
+                </div>
+
+                <!-- Skill Categories Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Frontend Engineering -->
+                    <div class="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/70 shadow-sm hover:border-zinc-300 dark:hover:border-zinc-700 transition duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-5">
+                            <i data-lucide="layout" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-zinc-900 dark:text-white mb-2">Frontend Tech</h3>
+                        <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-6">
+                            Building fluid, responsive, and accessible interfaces with modern frameworks.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">React & Next.js</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">TypeScript</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">Tailwind CSS</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">Vue 3</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">Three.js / WebGL</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">Framer Motion</span>
+                        </div>
+                    </div>
+
+                    <!-- Backend & Systems -->
+                    <div class="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/70 shadow-sm hover:border-zinc-300 dark:hover:border-zinc-700 transition duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-5">
+                            <i data-lucide="server" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-zinc-900 dark:text-white mb-2">Backend & APIs</h3>
+                        <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-6">
+                            Designing resilient data models, scalable serverless pipelines, and APIs.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">Node.js / Express</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">PostgreSQL</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">GraphQL & REST</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">Prisma ORM</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">Redis</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">Supabase</span>
+                        </div>
+                    </div>
+
+                    <!-- Design & Devops -->
+                    <div class="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/70 shadow-sm hover:border-zinc-300 dark:hover:border-zinc-700 transition duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-5">
+                            <i data-lucide="sparkles" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-zinc-900 dark:text-white mb-2">Product & UI/UX</h3>
+                        <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-6">
+                            Crafting coherent design tokens, wireframes, and interactive prototypes.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">Figma</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">Design Systems</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">Prototyping</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">User Testing</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">Docker</span>
+                            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">CI/CD Pipelines</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Proficiencies Progress Bars -->
+                <div class="mt-12 p-6 sm:p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50">
+                    <h3 class="text-lg font-bold text-zinc-900 dark:text-white mb-6">Core Competency Strength</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                        <div>
+                            <div class="flex justify-between text-sm font-medium mb-1.5">
+                                <span>Frontend Architecture (React/TypeScript)</span>
+                                <span class="text-emerald-600 dark:text-emerald-400">96%</span>
+                            </div>
+                            <div class="w-full bg-zinc-100 dark:bg-zinc-800 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-emerald-500 h-full rounded-full" style="width: 96%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-medium mb-1.5">
+                                <span>UI/UX & Design Systems (Figma)</span>
+                                <span class="text-emerald-600 dark:text-emerald-400">92%</span>
+                            </div>
+                            <div class="w-full bg-zinc-100 dark:bg-zinc-800 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-emerald-500 h-full rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-medium mb-1.5">
+                                <span>Backend APIs & Database Design</span>
+                                <span class="text-emerald-600 dark:text-emerald-400">88%</span>
+                            </div>
+                            <div class="w-full bg-zinc-100 dark:bg-zinc-800 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-emerald-500 h-full rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-medium mb-1.5">
+                                <span>Performance Optimization & SEO</span>
+                                <span class="text-emerald-600 dark:text-emerald-400">95%</span>
+                            </div>
+                            <div class="w-full bg-zinc-100 dark:bg-zinc-800 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-emerald-500 h-full rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="py-20 sm:py-28 border-t border-zinc-200 dark:border-zinc-800/60">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header and Filters -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div>
+                        <div class="text-xs uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-semibold mb-2">Portfolio</div>
+                        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white">
+                            Selected Works & Case Studies
+                        </h2>
+                    </div>
+
+                    <!-- Category Filter Buttons -->
+                    <div class="flex items-center gap-1.5 p-1 rounded-xl bg-zinc-100 dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-700/60 self-start md:self-auto overflow-x-auto max-w-full">
+                        <button onclick="filterProjects('all')" class="filter-btn active px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white shadow-sm" data-category="all">
+                            All
+                        </button>
+                        <button onclick="filterProjects('web')" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition" data-category="web">
+                            Web Apps
+                        </button>
+                        <button onclick="filterProjects('design')" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition" data-category="design">
+                            Design Systems
+                        </button>
+                        <button onclick="filterProjects('saas')" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition" data-category="saas">
+                            SaaS
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Projects Grid -->
+                <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Project 1 -->
+                    <div class="project-card group rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden bg-white dark:bg-zinc-900/60 hover:shadow-xl transition-all duration-300" data-cat="web saas">
+                        <div class="relative aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+                            <img 
+                                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80" 
+                                alt="FinPulse SaaS Dashboard" 
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                                onerror="this.src='https://placehold.co/800x450/1e293b/ffffff?text=FinPulse+Dashboard'"
+                            />
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                                <button onclick="openModal('finpulse')" class="p-3 bg-white text-zinc-900 rounded-full shadow-lg hover:scale-110 transition">
+                                    <i data-lucide="eye" class="w-4 h-4"></i>
+                                </button>
+                                <a href="https://github.com" target="_blank" rel="noopener" class="p-3 bg-zinc-900 text-white rounded-full shadow-lg hover:scale-110 transition">
+                                    <i data-lucide="github" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-6 sm:p-7">
+                            <div class="flex items-center justify-between text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-2">
+                                <span>FINTECH • WEB APPLICATION</span>
+                                <span>2024</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-zinc-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">
+                                FinPulse — Realtime Cloud Analytics
+                            </h3>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-4 line-clamp-2">
+                                A high-throughput financial telemetry platform processing 10k+ events/sec with customizable streaming dashboards.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2 border-t border-zinc-100 dark:border-zinc-800/80">
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">Next.js 14</span>
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">TypeScript</span>
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">Tailwind</span>
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">D3.js</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="project-card group rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden bg-white dark:bg-zinc-900/60 hover:shadow-xl transition-all duration-300" data-cat="design">
+                        <div class="relative aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+                            <img 
+                                src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1000&q=80" 
+                                alt="Aura UI Component System" 
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                                onerror="this.src='https://placehold.co/800x450/1e293b/ffffff?text=Aura+Design+System'"
+                            />
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                                <button onclick="openModal('aura')" class="p-3 bg-white text-zinc-900 rounded-full shadow-lg hover:scale-110 transition">
+                                    <i data-lucide="eye" class="w-4 h-4"></i>
+                                </button>
+                                <a href="https://figma.com" target="_blank" rel="noopener" class="p-3 bg-zinc-900 text-white rounded-full shadow-lg hover:scale-110 transition">
+                                    <i data-lucide="figma" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-6 sm:p-7">
+                            <div class="flex items-center justify-between text-xs font-semibold text-purple-600 dark:text-purple-400 mb-2">
+                                <span>DESIGN SYSTEM • ACCESSIBILITY</span>
+                                <span>2024</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-zinc-900 dark:text-white mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition">
+                                Aura UI — Cross-Platform Token System
+                            </h3>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-4 line-clamp-2">
+                                Comprehensive multi-brand token system utilized by 85+ developers, reducing component build time by 42%.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2 border-t border-zinc-100 dark:border-zinc-800/80">
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">Figma Tokens</span>
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">Storybook</span>
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">React</span>
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">WCAG AA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="project-card group rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden bg-white dark:bg-zinc-900/60 hover:shadow-xl transition-all duration-300" data-cat="saas web">
+                        <div class="relative aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+                            <img 
+                                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80" 
+                                alt="Kroma AI Workspace" 
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                                onerror="this.src='https://placehold.co/800x450/1e293b/ffffff?text=Kroma+AI+Workspace'"
+                            />
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                                <button onclick="openModal('kroma')" class="p-3 bg-white text-zinc-900 rounded-full shadow-lg hover:scale-110 transition">
+                                    <i data-lucide="eye" class="w-4 h-4"></i>
+                                </button>
+                                <a href="https://github.com" target="_blank" rel="noopener" class="p-3 bg-zinc-900 text-white rounded-full shadow-lg hover:scale-110 transition">
+                                    <i data-lucide="github" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-6 sm:p-7">
+                            <div class="flex items-center justify-between text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-2">
+                                <span>AI PRODUCTIVITY • FULL STACK</span>
+                                <span>2023</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-zinc-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">
+                                Kroma AI — Collaborative Canvas
+                            </h3>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-4 line-clamp-2">
+                                Collaborative canvas combining real-time multi-cursor collaboration with LLM inference for visual documentation.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2 border-t border-zinc-100 dark:border-zinc-800/80">
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">WebSockets</span>
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">Python FastAPI</span>
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">PostgreSQL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="project-card group rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden bg-white dark:bg-zinc-900/60 hover:shadow-xl transition-all duration-300" data-cat="web">
+                        <div class="relative aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+                            <img 
+                                src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1000&q=80" 
+                                alt="CipherNode Security Engine" 
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                                onerror="this.src='https://placehold.co/800x450/1e293b/ffffff?text=CipherNode+Security'"
+                            />
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                                <button onclick="openModal('cipher')" class="p-3 bg-white text-zinc-900 rounded-full shadow-lg hover:scale-110 transition">
+                                    <i data-lucide="eye" class="w-4 h-4"></i>
+                                </button>
+                                <a href="https://github.com" target="_blank" rel="noopener" class="p-3 bg-zinc-900 text-white rounded-full shadow-lg hover:scale-110 transition">
+                                    <i data-lucide="github" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-6 sm:p-7">
+                            <div class="flex items-center justify-between text-xs font-semibold text-blue-600 dark:text-blue-400 mb-2">
+                                <span>INFRASTRUCTURE • DEV TOOLS</span>
+                                <span>2023</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-zinc-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
+                                CipherNode — Key Lifecycle Manager
+                            </h3>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-4 line-clamp-2">
+                                Zero-trust secret encryption manager with audit trail visualizer and instantaneous roll-back triggers.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2 border-t border-zinc-100 dark:border-zinc-800/80">
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">Go</span>
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">React</span>
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">Docker</span>
+                                <span class="text-xs px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">Vault</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="py-20 sm:py-28 bg-zinc-100/60 dark:bg-zinc-900/30 border-t border-zinc-200 dark:border-zinc-800/60">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    <!-- Left: Contact Information -->
+                    <div class="lg:col-span-5">
+                        <div class="text-xs uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-semibold mb-2">Get In Touch</div>
+                        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white mb-4">
+                            Let’s discuss your next project.
+                        </h2>
+                        <p class="text-zinc-600 dark:text-zinc-400 text-base leading-relaxed mb-8">
+                            Have an exciting project or want to level up your engineering & design team? Send me a message and I'll get back to you within 24 hours.
+                        </p>
+
+                        <!-- Contact Direct Items -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4 p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80">
+                                <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                                    <i data-lucide="mail" class="w-5 h-5"></i>
+                                </div>
+                                <div class="overflow-hidden">
+                                    <div class="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Direct Email</div>
+                                    <a href="mailto:alex@riveradesign.io" class="text-sm font-semibold text-zinc-900 dark:text-white hover:underline truncate block">
+                                        alex@riveradesign.io
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4 p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80">
+                                <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Location</div>
+                                    <div class="text-sm font-semibold text-zinc-900 dark:text-white">
+                                        San Francisco, CA (PST)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4 p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80">
+                                <div class="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+                                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Schedule A Call</div>
+                                    <a href="#contact" onclick="openScheduleModal()" class="text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+                                        Book 20-min introductory sync
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Contact Form -->
+                    <div class="lg:col-span-7">
+                        <div class="p-6 sm:p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 shadow-sm relative">
+                            <!-- Feedback Alert -->
+                            <div id="form-alert" class="hidden mb-6 p-4 rounded-xl text-sm font-medium border"></div>
+
+                            <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="name" class="block text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
+                                            Your Name <span class="text-rose-500">*</span>
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="name" 
+                                            required 
+                                            placeholder="Jane Doe"
+                                            class="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
+                                        >
+                                    </div>
+                                    <div>
+                                        <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
+                                            Email Address <span class="text-rose-500">*</span>
+                                        </label>
+                                        <input 
+                                            type="email" 
+                                            id="email" 
+                                            required 
+                                            placeholder="jane@company.com"
+                                            class="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
+                                        >
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="subject" class="block text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
+                                        Project Scope / Subject
+                                    </label>
+                                    <select 
+                                        id="subject" 
+                                        class="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
+                                    >
+                                        <option value="Full-Stack Web App">Full-Stack Web Application</option>
+                                        <option value="UI/UX & Product Design">UI/UX & Product Design</option>
+                                        <option value="Consulting / Advisory">Technical Consulting / Advisory</option>
+                                        <option value="Other">Other Query</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
+                                        Message <span class="text-rose-500">*</span>
+                                    </label>
+                                    <textarea 
+                                        id="message" 
+                                        rows="4" 
+                                        required 
+                                        placeholder="Tell me about your goals, timeline, and budget..."
+                                        class="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
+                                    ></textarea>
+                                </div>
+
+                                <button 
+                                    type="submit" 
+                                    id="submit-btn" 
+                                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200 text-white font-medium text-sm transition shadow-md"
+                                >
+                                    <span id="btn-text">Send Message</span>
+                                    <i data-lucide="send" id="btn-icon" class="w-4 h-4"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-zinc-200 dark:border-zinc-800 py-12 bg-white dark:bg-[#0a0a0c]">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-2">
+                <span class="w-7 h-7 rounded-lg bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 font-bold flex items-center justify-center text-xs">
+                    AR
+                </span>
+                <span class="text-sm text-zinc-500 dark:text-zinc-400">
+                    © <span id="current-year"></span> Alex Rivera. Built with care and clean code.
+                </span>
+            </div>
+
+            <!-- Back to top button -->
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="inline-flex items-center gap-2 text-xs font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition">
+                <span>Back to top</span>
+                <i data-lucide="chevron-up" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- PROJECT DETAILS MODAL -->
+    <div id="project-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-5 right-5 p-2 rounded-lg text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div id="modal-content">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Set dynamic year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Dark / Light Mode Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        
+        // Check stored theme or system preference
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Copy Email function with fallback for iframe limitations
+        function copyEmailToClipboard() {
+            const email = "alex@riveradesign.io";
+            const tempInput = document.createElement("input");
+            tempInput.value = email;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            const copyText = document.getElementById('copy-email-text');
+            const original = copyText.textContent;
+            copyText.textContent = "Copied to Clipboard!";
+            setTimeout(() => {
+                copyText.textContent = original;
+            }, 2200);
+        }
+
+        // Project Filtering
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('.project-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Set button active states
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-category') === category) {
+                    btn.className = "filter-btn active px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white shadow-sm";
+                } else {
+                    btn.className = "filter-btn px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition";
+                }
+            });
+
+            // Filter logic
+            cards.forEach(card => {
+                const cats = card.getAttribute('data-cat').split(' ');
+                if (category === 'all' || cats.includes(category)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Project Data for Modal
+        const projectData = {
+            finpulse: {
+                title: "FinPulse — Realtime Cloud Analytics",
+                category: "Fintech Platform",
+                desc: "FinPulse provides automated telemetry ingestion, custom metric query generation, and real-time visualization for high-frequency financial teams.",
+                highlights: [
+                    "Engineered real-time WebSockets pipeline handling 10,000+ ticks/sec.",
+                    "Designed adaptive canvas charts rendering 100k data points at 60 FPS.",
+                    "Built full authentication and RBAC permissions model using Supabase."
+                ],
+                stack: ["Next.js", "TypeScript", "Tailwind CSS", "D3.js", "PostgreSQL", "Redis"],
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80"
+            },
+            aura: {
+                title: "Aura UI — Cross-Platform Token System",
+                category: "Design System & UI Library",
+                desc: "Aura UI is a unified component library built to enforce consistent brand expression across web, iOS, and Android applications.",
+                highlights: [
+                    "Constructed 60+ accessible headless components with 100% test coverage.",
+                    "Implemented automated Figma-to-code token sync via GitHub Actions.",
+                    "Reduced cross-team frontend build time by 42% in initial rollout."
+                ],
+                stack: ["Figma Tokens", "React", "Storybook", "TypeScript", "Radix Primitives"],
+                image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1000&q=80"
+            },
+            kroma: {
+                title: "Kroma AI — Collaborative Canvas",
+                category: "AI SaaS Workspace",
+                desc: "An endless virtual whiteboard tool that connects multi-user real-time diagramming with instant contextual code and flowchart generation.",
+                highlights: [
+                    "Realtime multiplayer room state synchronization with CRDT algorithms.",
+                    "Integrated streaming LLM completion pipelines via Python backend.",
+                    "Custom vector stroke smoothing and high-DPI zoom engine."
+                ],
+                stack: ["React", "FastAPI", "WebSockets", "Docker", "Python", "Tailwind"],
+                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80"
+            },
+            cipher: {
+                title: "CipherNode — Key Lifecycle Manager",
+                category: "DevOps & Security",
+                desc: "An enterprise secret and API credential rotating manager with zero-knowledge cryptographic authentication.",
+                highlights: [
+                    "Automated key rotators supporting AWS, GCP, and cloud providers.",
+                    "Detailed security audit logs with instant diff comparisons.",
+                    "Hardened against replay attacks and network eavesdropping."
+                ],
+                stack: ["Go", "React", "Docker", "Vault", "Tailwind"],
+                image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1000&q=80"
+            }
+        };
+
+        const modal = document.getElementById('project-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        function openModal(id) {
+            const data = projectData[id];
+            if (!data) return;
+
+            modalContent.innerHTML = `
+                <div class="mb-4">
+                    <span class="text-xs uppercase font-bold tracking-wider text-emerald-600 dark:text-emerald-400">${data.category}</span>
+                    <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mt-1">${data.title}</h3>
+                </div>
+                <img src="${data.image}" alt="${data.title}" class="w-full aspect-video object-cover rounded-xl mb-5 border border-zinc-200 dark:border-zinc-800" onerror="this.src='https://placehold.co/800x450/1e293b/ffffff?text=Project+Preview'">
+                <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-4">${data.desc}</p>
+                <div class="mb-5">
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-2">Key Accomplishments</h4>
+                    <ul class="space-y-1.5">
+                        ${data.highlights.map(h => `<li class="text-sm text-zinc-700 dark:text-zinc-300 flex items-start gap-2"><span class="text-emerald-500 font-bold">•</span>${h}</li>`).join('')}
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-2">Technologies</h4>
+                    <div class="flex flex-wrap gap-2">
+                        ${data.stack.map(s => `<span class="px-2.5 py-1 text-xs rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-medium">${s}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="mt-6 pt-5 border-t border-zinc-200 dark:border-zinc-800 flex justify-end gap-3">
+                    <button onclick="closeModal()" class="px-4 py-2 rounded-xl text-sm font-medium border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">Close</button>
+                    <a href="#contact" onclick="closeModal()" class="px-4 py-2 rounded-xl text-sm font-medium bg-emerald-600 text-white hover:bg-emerald-700 transition">Inquire Similar Project</a>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Close modal on escape key or clicking backdrop
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Contact Form Submission Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+            const alertBox = document.getElementById('form-alert');
+            const name = document.getElementById('name').value;
+
+            // Loading state
+            submitBtn.disabled = true;
+            btnText.textContent = "Sending...";
+
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                btnText.textContent = "Send Message";
+
+                // Success Message Box
+                alertBox.className = "mb-6 p-4 rounded-xl text-sm font-medium border border-emerald-500/20 bg-emerald-500/10 text-emerald-800 dark:text-emerald-300";
+                alertBox.textContent = `Thank you, ${name}! Your message has been sent. I'll get back to you shortly.`;
+                alertBox.classList.remove('hidden');
+
+                // Clear input fields
+                document.getElementById('contact-form').reset();
+
+                // Hide alert after 5 seconds
+                setTimeout(() => {
+                    alertBox.classList.add('hidden');
+                }, 5000);
+            }, 800);
+        }
+
+        function openScheduleModal() {
+            const alertBox = document.getElementById('form-alert');
+            alertBox.className = "mb-6 p-4 rounded-xl text-sm font-medium border border-blue-500/20 bg-blue-500/10 text-blue-800 dark:text-blue-300";
+            alertBox.textContent = "Calendar scheduling integration initialized. Please fill out the form below or email alex@riveradesign.io to confirm availability!";
+            alertBox.classList.remove('hidden');
+            setTimeout(() => {
+                alertBox.classList.add('hidden');
+            }, 6000);
+        }
+    </script>
+</body>
+</html>
